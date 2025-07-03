@@ -1,0 +1,26 @@
+//
+//  SearchViewModel.swift
+//  DontJudge
+//
+//  Created by 3namull0r on 03/07/2025.
+//
+import SwiftUI
+
+@MainActor
+class SearchViewModel: ObservableObject {
+  @Published var query: String = ""
+  var onDebouncedSearch: ((String) async -> Void)?
+  private var searchTask: Task<Void, Never>? = nil
+  
+  func search() {
+    searchTask?.cancel()
+    searchTask = Task {
+      try? await Task.sleep(nanoseconds: 1_000_000_000)
+      guard !Task.isCancelled else { return }
+      
+      if let callback = onDebouncedSearch {
+        await callback(query)
+      }
+    }
+  }
+}
