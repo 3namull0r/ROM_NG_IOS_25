@@ -14,6 +14,44 @@ struct DetailView: View {
     _viewModel = StateObject(wrappedValue: DetailViewModel(id: id))
   }
   
+  var infoView: some View {
+    VStack {
+      VStack(alignment: .leading, spacing: 0) {
+        ForEach(viewModel.detailRows) { detailRow in
+          DetailRowView(viewModel: detailRow)
+        }
+      }
+      .padding(16)
+      .background(Color.blue.opacity(0.15))
+      .clipShape(RoundedRectangle(cornerRadius: 16))
+      .clipped()
+    }.padding(.horizontal)
+  }
+  
+  var descriptionView: some View {
+    VStack {
+      VStack(alignment: .leading, spacing: 0) {
+        HStack(alignment: .top, spacing: 16) {
+          Text(viewModel.descriptionViewModel.title)
+            //.numberOfLines(0)
+            .font(.body)
+            .bold()
+            .frame(maxWidth: 120, alignment: .leading)
+          Spacer()
+        }
+        HStack(alignment: .top, spacing: 16) {
+          Text(viewModel.descriptionViewModel.value)
+            .font(.body)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+      }
+      .padding(16)
+      .background(Color.blue.opacity(0.15))
+      .clipShape(RoundedRectangle(cornerRadius: 16))
+      .clipped()
+    }.padding(.horizontal)
+  }
+  
   var body: some View {
      ScrollView {
        VStack {
@@ -21,30 +59,8 @@ struct DetailView: View {
            ProgressView()
          } else {
            ThumbnailView(viewModel: viewModel.thumbnailViewModel)
-           if let title = viewModel.title {
-             Text(title)
-           }
-           if let subtitle = viewModel.subtitle {
-             Text(subtitle)
-           }
-           if let description = viewModel.description {
-             Text(description)
-           }
-           if let author = viewModel.author { 
-             Text(author)
-           }
-           if let publisher = viewModel.publisher {
-             Text(publisher)
-           }
-           if let publishedDate = viewModel.publishedDate {
-             Text(publishedDate)
-           }
-           if let description = viewModel.description {
-             Text(description)
-           }
-           if let pageCount = viewModel.pageCount {
-             Text(pageCount)
-           }
+           infoView
+           descriptionView
          }
        }
       }
@@ -55,5 +71,5 @@ struct DetailView: View {
 }
 
 #Preview {
-  HomeView()
+  DetailView(id: "nlk_EAAAQBAJ")
 }

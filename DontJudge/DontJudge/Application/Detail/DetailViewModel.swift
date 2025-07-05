@@ -9,8 +9,9 @@ import SwiftUI
 class DetailViewModel: ObservableObject {
   private let id: String
   private let booksService: BooksServiceProtocol
-  @Published var book: BookDetail?
+  var book: BookDetail?
   var errorText: String?
+  @Published var detailRows: [DetailRowViewModel] = []
   
   init(id: String,
        booksService: BooksServiceProtocol = BooksService()) {
@@ -22,11 +23,18 @@ class DetailViewModel: ObservableObject {
     book == nil
   }
   
-  var title: String? {
+  var descriptionViewModel: DetailRowViewModel {
+    DetailRowViewModel(
+        title: NSLocalizedString("Description", comment: "Label for book description"),
+        value: description ?? NSLocalizedString("No Description", comment: "Empty label for book description")
+    )
+  }
+  
+  private var title: String? {
     book?.volumeInfo.title ?? ""
   }
   
-  var subtitle: String? {
+  private var subtitle: String? {
     book?.volumeInfo.subtitle
   }
   
@@ -38,30 +46,61 @@ class DetailViewModel: ObservableObject {
     book?.volumeInfo.imageLinks?.thumbnail
   }
   
-  var author: String? {
+  private var author: String? {
     book?.volumeInfo.authors?.first
   }
   
-  var publisher: String? {
+  private var publisher: String? {
     book?.volumeInfo.publisher
   }
   
-  var publishedDate: String? {
+  private var publishedDate: String? {
     book?.volumeInfo.publishedDate
   }
   
-  var description: String? {
+  private var description: String? {
     book?.volumeInfo.description
   }
   
-  var pageCount: String? {
+  private var pageCount: String? {
     String(book?.volumeInfo.pageCount ?? 0)
+  }
+  
+  
+  func createDetailRows() {
+    detailRows = [
+        DetailRowViewModel(
+            title: NSLocalizedString("Title", comment: "Label for book title"),
+            value: title ?? NSLocalizedString("No Title", comment: "Empty label for book title")
+        ),
+        DetailRowViewModel(
+            title: NSLocalizedString("Subtitle", comment: "Label for book subtitle"),
+            value: subtitle ?? NSLocalizedString("No Subtitle", comment: "Empty label for book subtitle")
+        ),
+        DetailRowViewModel(
+            title: NSLocalizedString("Author", comment: "Label for book author"),
+            value: author ?? NSLocalizedString("No Author", comment: "Empty label for book author")
+        ),
+        DetailRowViewModel(
+            title: NSLocalizedString("Publisher", comment: "Label for book publisher"),
+            value: publisher ?? NSLocalizedString("No Publisher", comment: "Empty label for book publisher")
+        ),
+        DetailRowViewModel(
+            title: NSLocalizedString("Published Date", comment: "Label for book published date"),
+            value: publishedDate ?? NSLocalizedString("No Published Date", comment: "Empty label for book published date")
+        ),
+        DetailRowViewModel(
+            title: NSLocalizedString("Page Count", comment: "Label for book page count"),
+            value: pageCount ?? NSLocalizedString("No Page Count", comment: "Empty label for book page count")
+        )
+    ]
   }
   
   @MainActor
   func loadData() async {
     do {
       book = try await booksService.fetchBookDetail(volumeId: id)
+      createDetailRows()
     } catch {
       errorText = NSLocalizedString("There was a problem loading the book details.",
                                     comment: "Text displayed when books api call fails during search")

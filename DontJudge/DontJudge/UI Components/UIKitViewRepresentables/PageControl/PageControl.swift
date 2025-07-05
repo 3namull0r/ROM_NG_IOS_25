@@ -12,8 +12,8 @@ struct PageControl: UIViewRepresentable {
   
   func makeUIView(context: Context) -> UIPageControl {
     let control = UIPageControl()
-    control.pageIndicatorTintColor = .lightGray
-    control.currentPageIndicatorTintColor = .black
+    control.pageIndicatorTintColor = UIColor.blue.withAlphaComponent(0.15)
+    control.currentPageIndicatorTintColor = .blue
     control.addTarget(context.coordinator, action: #selector(Coordinator.pageChanged(_:)), for: .valueChanged)
     return control
   }
