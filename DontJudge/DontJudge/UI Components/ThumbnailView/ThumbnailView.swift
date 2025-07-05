@@ -12,42 +12,41 @@ struct ThumbnailView: View {
   
   var body: some View {
     VStack {
-//      if let url = viewModel.imageUrl {
-//        AsyncImage(url: url) { phase in
-//          switch phase {
-//          case .empty:
-//            ZStack {
-//              Color.gray
-//                .aspectRatio(16/9, contentMode: .fit)
-//                .frame(maxWidth: 300)
-//              overlay(
-//                ProgressView()
-//              )
-//            }
-//            .clipShape(RoundedRectangle(cornerRadius: 8))
-//          case .success(let image):
-//            Color.gray
-//              .aspectRatio(16/9, contentMode: .fit)
-//              .frame(maxWidth: 300)
-//              .overlay(
-//                image
-//                  .resizable()
-//                  .scaledToFit()
-//              )
-//              .clipShape(RoundedRectangle(cornerRadius: 8))
-//          case .failure:
-//            ZStack {
-//              Color.gray
-//                .aspectRatio(16/9, contentMode: .fit)
-//                .frame(maxWidth: 300)
-//              Image(systemName: "book")
-//            }
-//            .clipShape(RoundedRectangle(cornerRadius: 8))
-//          @unknown default:
-//            EmptyView()
-//          }
-//        }
-//      } else {
+      if let url = viewModel.imageUrl {
+        AsyncImage(url: url) { phase in
+          switch phase {
+          case .empty:
+            ZStack {
+              Color.gray
+                .aspectRatio(16/9, contentMode: .fit)
+                .frame(maxWidth: 300)
+              ProgressView()
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+          case .success(let image):
+            Color.gray
+              .aspectRatio(16/9, contentMode: .fit)
+              .frame(maxWidth: 300)
+              .overlay(
+                image
+                  .resizable()
+                  .scaledToFit()
+              )
+              .clipShape(RoundedRectangle(cornerRadius: 8))
+          case .failure:
+            ZStack {
+              Color.gray
+                .aspectRatio(16/9, contentMode: .fit)
+                .frame(maxWidth: 300)
+              Image(systemName: "book")
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+          @unknown default:
+            EmptyView()
+          }
+        }
+        .id(viewModel.id)
+      } else {
         VStack {
           ZStack {
             Color.gray
@@ -57,7 +56,7 @@ struct ThumbnailView: View {
           }
         }
         .clipShape(RoundedRectangle(cornerRadius: 8))
-  //    }
+      }
     }.onTapGesture {
       viewModel.onSelection()
     }
