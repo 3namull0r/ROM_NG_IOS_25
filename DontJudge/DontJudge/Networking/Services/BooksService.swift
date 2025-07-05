@@ -7,40 +7,97 @@
 
 import Foundation
 import Alamofire
+import OSLog
+
+struct Log {
+  private static let network = Logger(subsystem: "ROM.DontJudge", category: "Network")
+  
+  static func logRequest(_ request: DataRequest) {
+#if DEBUG
+    request.cURLDescription { description in
+      network.debug("🔍 Raw Request:\n\(description, privacy: .private)")
+    }
+#endif
+  }
+  
+  static func logResponse(_ rawResponse: String) {
+#if DEBUG
+    network.debug("👍 Raw Response:\n\(rawResponse, privacy: .public)")
+#endif
+  }
+  
+  static func logError(_ error: Error) {
+#if DEBUG
+    network.debug("❌ Error occurred: \(String(describing: error), privacy: .public)")
+#endif
+  }
+}
 
 protocol BooksServiceProtocol {
   func fetchBookItems(query: String) async throws -> [BookItem]
+  func fetchBookDetail(volumeId: String) async throws -> BookDetail
 }
 
 class BooksService: BooksServiceProtocol {
+  private let booksAPIKey = ProcessInfo.processInfo.environment["GOOGLE_BOOKS_API_KEY"] ?? ""
+  
   func fetchBookItems(query: String) async throws -> [BookItem] {
     let url = "https://www.googleapis.com/books/v1/volumes"
-    //        let response = try await AF.request(url)
-    //                .serializingDecodable(GoogleBooksResponse.self).value
-    //
-    //        return response.items ?? []
-    //    }
     let parameters: [String: String] = [
-        "q": query,
-        "key": "",
-        "fields": "items(volumeInfo(title,authors,imageLinks,industryIdentifiers))",
-        "maxResults": "10"
+      "q": query,
+      "key": booksAPIKey,
+      "fields": "items(id,volumeInfo(title,imageLinks))",
+      "maxResults": "10"
     ]
     
-    let response = try await AF.request(url,
-                                        method: .get,
-                                        parameters: parameters,
-                                        encoding: URLEncoding.default
-    )
-      //.serializingData().value
-      .serializingDecodable(BookItems.self).value
-    return response.items ?? []
+    do {
+      let request = AF.request(url,
+                               method: .get,
+                               parameters: parameters,
+                               encoding: URLEncoding.default)
+        .validate()
+      
+      Log.logRequest(request)
+      let rawResponse = try await request.serializingString().value
     
-//    // Convert Data to JSON dictionary
-//    if let jsonObject = try JSONSerialization.jsonObject(with: response) as? [String: Any] {
-//      print("✅ JSON Response:")
-//      print(jsonObject)
-//    }
+      Log.logResponse(rawResponse)
+      let data = Data(rawResponse.utf8)
+      let decoded = try JSONDecoder().decode(BookItems.self, from: data)
+      
+      return decoded.items ?? []
+    } catch {
+      Log.logError(error)
+      throw error
+    }
+    
+  }
+  
+  func fetchBookDetail(volumeId: String) async throws -> BookDetail {
+    let url = "https://www.googleapis.com/books/v1/volumes/\(volumeId)"
+    let parameters: [String: String] = [
+      "key": booksAPIKey,
+    ]
+    
+    do {
+      let request = AF.request(url,
+                               method: .get,
+                               parameters: parameters,
+                               encoding: URLEncoding.default)
+        .validate()
+      
+      Log.logRequest(request)
+      let rawResponse = try await request.serializingString().value
+    
+      Log.logResponse(rawResponse)
+      let data = Data(rawResponse.utf8)
+      let decoded = try JSONDecoder().decode(BookDetail.self, from: data)
+      
+      return decoded
+    } catch {
+      Log.logError(error)
+      throw error
+    }
+    
   }
   
 }

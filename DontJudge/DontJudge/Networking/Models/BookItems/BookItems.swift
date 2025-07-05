@@ -13,18 +13,13 @@ struct BookItems: Decodable {
 }
 
 struct BookItem: Decodable, Identifiable {
-  let volumeInfo: VolumeInfo
-  
-  var id: String {
-    volumeInfo.industryIdentifiers?.first?.identifier ?? UUID().uuidString
-  }
+  let volumeInfo: VolumeInfoLight
+  let id: String
 }
 
-struct VolumeInfo: Decodable {
+struct VolumeInfoLight: Decodable {
   let title: String?
-  var authors: [String]?
   let imageLinks: ImageLinks?
-  let industryIdentifiers: [IndustryIdentifiers]?
 }
 
 struct ImageLinks: Decodable {
@@ -32,9 +27,4 @@ struct ImageLinks: Decodable {
   var smallThumbnail: String?
   @HttpsUrl
   var thumbnail: String?
-}
-
-struct IndustryIdentifiers: Decodable {
-  let type: String?
-  let identifier: String?
 }

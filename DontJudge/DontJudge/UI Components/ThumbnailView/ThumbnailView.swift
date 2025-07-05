@@ -8,21 +8,62 @@
 import SwiftUI
 
 struct ThumbnailView: View {
-  var source: ThumbnailView.Source
+  var viewModel: ThumbnailViewModel
   
   var body: some View {
-    AsyncImage(url: source.imageUrl) { image in
-      image
-        .resizable()
-        .scaledToFill()
-        .frame(maxWidth: 100)
-        .aspectRatio(16/9, contentMode: .fill)
-        .clipped()
-    } placeholder: {
-      Color.gray
-        .frame(maxWidth: 100)
-        .aspectRatio(16/9, contentMode: .fill)
-        .clipped()
+    VStack {
+//      if let url = viewModel.imageUrl {
+//        AsyncImage(url: url) { phase in
+//          switch phase {
+//          case .empty:
+//            ZStack {
+//              Color.gray
+//                .aspectRatio(16/9, contentMode: .fit)
+//                .frame(maxWidth: 300)
+//              overlay(
+//                ProgressView()
+//              )
+//            }
+//            .clipShape(RoundedRectangle(cornerRadius: 8))
+//          case .success(let image):
+//            Color.gray
+//              .aspectRatio(16/9, contentMode: .fit)
+//              .frame(maxWidth: 300)
+//              .overlay(
+//                image
+//                  .resizable()
+//                  .scaledToFit()
+//              )
+//              .clipShape(RoundedRectangle(cornerRadius: 8))
+//          case .failure:
+//            ZStack {
+//              Color.gray
+//                .aspectRatio(16/9, contentMode: .fit)
+//                .frame(maxWidth: 300)
+//              Image(systemName: "book")
+//            }
+//            .clipShape(RoundedRectangle(cornerRadius: 8))
+//          @unknown default:
+//            EmptyView()
+//          }
+//        }
+//      } else {
+        VStack {
+          ZStack {
+            Color.gray
+              .aspectRatio(16/9, contentMode: .fit)
+              .frame(maxWidth: 300)
+            Image(systemName: "book")
+          }
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+  //    }
+    }.onTapGesture {
+      viewModel.onSelection()
     }
   }
+}
+
+#Preview {
+  ThumbnailView(viewModel: ThumbnailViewModel(imageUrlString: "", onFocus: {}, onSelection: {}))
 }
