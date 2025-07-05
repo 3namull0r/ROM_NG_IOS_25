@@ -16,18 +16,20 @@ struct HomeView: View {
         SearchView(viewModel: viewModel.searchViewModel)
         DescriptionView(viewModel: viewModel.descritionViewModel)
           .padding(.horizontal)
-        if viewModel.hasResults {
-          segmentControl
-          .padding(.horizontal)
-          switch viewModel.selectedView {
-          case .list:
-            listView
-          case .carousel:
-            CarouselView(viewModel: viewModel.carouselViewModel)
+        
+          if viewModel.hasResults {
+            segmentControl
+              .padding(.horizontal)
+            switch viewModel.selectedView {
+            case .list:
+              BookListView(viewModel: viewModel.bookListViewModel)
+            case .carousel:
+              CarouselView(viewModel: viewModel.carouselViewModel)
+            }
           }
+          Spacer()
         }
-        Spacer()
-      }
+      .ignoresSafeArea(.container, edges: .bottom)
       .navigationTitle(viewModel.navTitle)
       .navigationDestination(for: Route.self) { route in
         switch route {
@@ -45,14 +47,6 @@ struct HomeView: View {
       }
     }
     .pickerStyle(.segmented)
-  }
-  
-  var listView: some View {
-    List(viewModel.bookItems) { result in
-      HStack {
-        Text(result.volumeInfo.title ?? "")
-      }
-    }
   }
   
 }

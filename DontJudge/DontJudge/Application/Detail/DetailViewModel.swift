@@ -33,7 +33,10 @@ class DetailViewModel: ObservableObject {
   }
   
   var thumbnailViewModel: ThumbnailViewModel {
-    ThumbnailViewModel(imageUrlString: book?.volumeInfo.imageLinks?.thumbnail, onFocus: {}, onSelection: {})
+    ThumbnailViewModel(imageUrlString: book?.volumeInfo.imageLinks?.thumbnail,
+                       thumbnailStyle: .title,
+                       onFocus: {},
+                       onSelection: {})
   }
   
   private var titleRow: DetailRowViewModel {

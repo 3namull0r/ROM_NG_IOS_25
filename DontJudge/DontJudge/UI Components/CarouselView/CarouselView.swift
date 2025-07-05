@@ -18,7 +18,7 @@ struct CarouselView: View {
             HStack(spacing: 20) {
               ForEach(Array(viewModel.thumbnailViewModels.enumerated()), id: \.offset) { index, viewModel in
                 ThumbnailView(viewModel: viewModel)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .clipShape(RoundedRectangle(cornerRadius: 16))
                   .cornerRadius(8)
                   .id(index)
               }

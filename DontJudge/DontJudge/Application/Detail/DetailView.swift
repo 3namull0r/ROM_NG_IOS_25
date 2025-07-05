@@ -26,7 +26,6 @@ struct DetailView: View {
       .clipShape(RoundedRectangle(cornerRadius: 16))
       .clipped()
     }
-    .padding(.horizontal)
     .navigationTitle(viewModel.navTitle)
   }
   
@@ -36,10 +35,12 @@ struct DetailView: View {
          if viewModel.isLoading {
            ProgressView()
          } else {
-           ThumbnailView(viewModel: viewModel.thumbnailViewModel)
-           infoView
-           DescriptionView(viewModel: viewModel.descriptionViewModel)
-             .padding(.horizontal)
+           Group {
+             ThumbnailView(viewModel: viewModel.thumbnailViewModel)
+             infoView
+             DescriptionView(viewModel: viewModel.descriptionViewModel)
+           }
+            .padding(.horizontal)
          }
        }
       }

@@ -22,7 +22,7 @@ struct ThumbnailView: View {
           placeholderView
         }
       }
-      .clipShape(RoundedRectangle(cornerRadius: 8))
+      .clipShape(RoundedRectangle(cornerRadius: 16))
     }
     .onTapGesture {
       viewModel.onSelection()
@@ -52,9 +52,9 @@ struct ThumbnailView: View {
   }
   
   private var baseImageBackground: some View {
-    Color.blue.opacity(0.15)
+    viewModel.thumbnailStyle.backgroundColor
       .aspectRatio(16/9, contentMode: .fit)
-      .frame(maxWidth: 300)
+      .frame(maxWidth: viewModel.thumbnailStyle.maxWidth)
   }
   
   private var placeholderView: some View {
@@ -68,4 +68,6 @@ struct ThumbnailView: View {
 
 #Preview {
   ThumbnailView(viewModel: ThumbnailViewModel(imageUrlString: "", onFocus: {}, onSelection: {}))
+  ThumbnailView(viewModel: ThumbnailViewModel(imageUrlString: "", thumbnailStyle: .inline, onFocus: {}, onSelection: {}))
+  ThumbnailView(viewModel: ThumbnailViewModel(imageUrlString: "", thumbnailStyle: .title, onFocus: {}, onSelection: {}))
 }
