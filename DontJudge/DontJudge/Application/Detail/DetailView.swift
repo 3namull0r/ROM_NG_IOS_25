@@ -29,6 +29,11 @@ struct DetailView: View {
     .navigationTitle(viewModel.navTitle)
   }
   
+  var errorView: some View {
+    Text(viewModel.errorText!)
+      .foregroundColor(.red)
+  }
+  
   var body: some View {
      ScrollView {
        VStack {
@@ -36,9 +41,13 @@ struct DetailView: View {
            ProgressView()
          } else {
            Group {
-             ThumbnailView(viewModel: viewModel.thumbnailViewModel)
-             infoView
-             DescriptionView(viewModel: viewModel.descriptionViewModel)
+             if viewModel.errorText != nil {
+               errorView
+             } else {
+               ThumbnailView(viewModel: viewModel.thumbnailViewModel)
+               infoView
+               DescriptionView(viewModel: viewModel.descriptionViewModel)
+             }
            }
             .padding(.horizontal)
          }

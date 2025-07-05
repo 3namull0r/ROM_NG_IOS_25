@@ -8,7 +8,7 @@ import SwiftUI
 
 class DetailViewModel: ObservableObject {
   var book: BookDetail?
-  var errorText: String?
+  @Published var errorText: String?
   @Published var detailRows: [DetailRowViewModel] = []
   let navTitle =  NSLocalizedString("Book Details", comment: "Home screen navigation bar title")
   
@@ -22,7 +22,7 @@ class DetailViewModel: ObservableObject {
   }
   
   var isLoading: Bool {
-    book == nil
+    book == nil && errorText == nil
   }
   
   var descriptionViewModel: DescriptionViewModel {
@@ -96,6 +96,7 @@ class DetailViewModel: ObservableObject {
   @MainActor
   func loadData() async {
     do {
+      errorText = nil
       book = try await booksService.fetchBookDetail(volumeId: id)
       createDetailRows()
     } catch {

@@ -40,14 +40,15 @@ protocol BooksServiceProtocol {
 
 class BooksService: BooksServiceProtocol {
   private let booksAPIKey = ProcessInfo.processInfo.environment["GOOGLE_BOOKS_API_KEY"] ?? ""
+  private let endpoint = "https://www.googleapis.com/books/v1/volumes"
   
   func fetchBookItems(query: String) async throws -> [BookItem] {
-    let url = "https://www.googleapis.com/books/v1/volumes"
+    let url = "\(endpoint)"
     let parameters: [String: String] = [
       "q": query,
       "key": booksAPIKey,
       "fields": "items(id,volumeInfo(title,imageLinks))",
-      "maxResults": "10"
+      "maxResults": "20"
     ]
     
     guard query.isEmpty == false else {
@@ -77,7 +78,7 @@ class BooksService: BooksServiceProtocol {
   }
   
   func fetchBookDetail(volumeId: String) async throws -> BookDetail {
-    let url = "https://www.googleapis.com/books/v1/volumes/\(volumeId)"
+    let url = "\(endpoint)/\(volumeId)&&&&&"
     let parameters: [String: String] = [
       "key": booksAPIKey,
     ]
