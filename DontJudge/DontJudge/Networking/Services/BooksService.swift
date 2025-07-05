@@ -78,7 +78,7 @@ class BooksService: BooksServiceProtocol {
   }
   
   func fetchBookDetail(volumeId: String) async throws -> BookDetail {
-    let url = "\(endpoint)/\(volumeId)&&&&&"
+    let url = "\(endpoint)/\(volumeId)"
     let parameters: [String: String] = [
       "key": booksAPIKey,
     ]
