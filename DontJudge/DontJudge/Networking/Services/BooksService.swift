@@ -50,6 +50,10 @@ class BooksService: BooksServiceProtocol {
       "maxResults": "10"
     ]
     
+    guard query.isEmpty == false else {
+      return []
+    }
+    
     do {
       let request = AF.request(url,
                                method: .get,

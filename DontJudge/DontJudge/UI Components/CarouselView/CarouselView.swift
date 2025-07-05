@@ -35,8 +35,15 @@ struct CarouselView: View {
         PageControl(currentPage: $viewModel.scrollIndex, numberOfPages: viewModel.thumbnailViewModels.count)
         if let subtitle = viewModel.subtitle {
           Text("\(subtitle)")
+            .font(.title)
+            .bold()
+            .padding(.horizontal)
         }
         Spacer()
       }
   }
+}
+
+#Preview {
+  CarouselView(viewModel: CarouselViewModel())
 }

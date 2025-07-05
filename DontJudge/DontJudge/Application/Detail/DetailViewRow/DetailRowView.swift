@@ -12,7 +12,6 @@ struct DetailRowView: View {
   var body: some View {
     HStack(alignment: .top, spacing: 16) {
       Text(viewModel.title)
-        //.numberOfLines(0)
         .font(.body)
         .bold()
         .frame(maxWidth: 120, alignment: .leading)

@@ -11,10 +11,18 @@ enum Route: Hashable {
   case bookDetail(id: String)
 }
 
+enum ContentViewType: String, CaseIterable, Identifiable {
+  case carousel = "Carousel"
+  case list = "List"
+  
+  var id: String { rawValue }
+}
+
 @MainActor
 class HomeViewModel: ObservableObject {
   @Published var bookItems: [BookItem] = []
   @Published var path = [Route]()
+  @Published var selectedView: ContentViewType = .carousel
   let searchViewModel = SearchViewModel()
   let carouselViewModel = CarouselViewModel()
   
@@ -27,6 +35,16 @@ class HomeViewModel: ObservableObject {
       await self.searchText(query: query)
     }
   }
+  
+  let navTitle =  NSLocalizedString("Dont Judge", comment: "Home screen navigation bar title")
+  
+  var descritionViewModel: DescriptionViewModel {
+    DescriptionViewModel(title: NSLocalizedString("Welcome to DontJudge", comment: "Welcome text title"),
+                         detail: NSLocalizedString("Search for books in the bar above to see their covers but don't judge them based on that! Tap on the cover to get more information.",
+                                                     comment: "Welcome screen subtitle"))
+  }
+  
+  var hasResults: Bool { !bookItems.isEmpty }
   
   @MainActor
   func searchText(query: String) async {

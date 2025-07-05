@@ -14,14 +14,21 @@ struct HomeView: View {
     NavigationStack(path: $viewModel.path) {
       VStack {
         SearchView(viewModel: viewModel.searchViewModel)
-        //      List(viewModel.bookItems) { result in
-        //        HStack {
-        //          ThumbnailView(viewModel: .init(imageUrlString: result.volumeInfo.imageLinks?.smallThumbnail))
-        //          Text(result.volumeInfo.title ?? "")
-        //        }
-        //      }
-        CarouselView(viewModel: viewModel.carouselViewModel)
+        DescriptionView(viewModel: viewModel.descritionViewModel)
+          .padding(.horizontal)
+        if viewModel.hasResults {
+          segmentControl
+          .padding(.horizontal)
+          switch viewModel.selectedView {
+          case .list:
+            listView
+          case .carousel:
+            CarouselView(viewModel: viewModel.carouselViewModel)
+          }
+        }
+        Spacer()
       }
+      .navigationTitle(viewModel.navTitle)
       .navigationDestination(for: Route.self) { route in
         switch route {
         case .bookDetail(let id):
@@ -30,7 +37,26 @@ struct HomeView: View {
       }
     }
   }
+  
+  var segmentControl: some View {
+    Picker("View", selection: $viewModel.selectedView) {
+      ForEach(ContentViewType.allCases) { viewType in
+        Text(viewType.rawValue).tag(viewType)
+      }
+    }
+    .pickerStyle(.segmented)
+  }
+  
+  var listView: some View {
+    List(viewModel.bookItems) { result in
+      HStack {
+        Text(result.volumeInfo.title ?? "")
+      }
+    }
+  }
+  
 }
+
 
 #Preview {
   HomeView()

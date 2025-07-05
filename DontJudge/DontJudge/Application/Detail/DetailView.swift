@@ -25,31 +25,9 @@ struct DetailView: View {
       .background(Color.blue.opacity(0.15))
       .clipShape(RoundedRectangle(cornerRadius: 16))
       .clipped()
-    }.padding(.horizontal)
-  }
-  
-  var descriptionView: some View {
-    VStack {
-      VStack(alignment: .leading, spacing: 0) {
-        HStack(alignment: .top, spacing: 16) {
-          Text(viewModel.descriptionViewModel.title)
-            //.numberOfLines(0)
-            .font(.body)
-            .bold()
-            .frame(maxWidth: 120, alignment: .leading)
-          Spacer()
-        }
-        HStack(alignment: .top, spacing: 16) {
-          Text(viewModel.descriptionViewModel.value)
-            .font(.body)
-            .frame(maxWidth: .infinity, alignment: .leading)
-        }
-      }
-      .padding(16)
-      .background(Color.blue.opacity(0.15))
-      .clipShape(RoundedRectangle(cornerRadius: 16))
-      .clipped()
-    }.padding(.horizontal)
+    }
+    .padding(.horizontal)
+    .navigationTitle(viewModel.navTitle)
   }
   
   var body: some View {
@@ -60,7 +38,8 @@ struct DetailView: View {
          } else {
            ThumbnailView(viewModel: viewModel.thumbnailViewModel)
            infoView
-           descriptionView
+           DescriptionView(viewModel: viewModel.descriptionViewModel)
+             .padding(.horizontal)
          }
        }
       }
