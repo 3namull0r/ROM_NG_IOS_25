@@ -18,7 +18,7 @@
 
 - SwiftUI & Combine
 - MVVM architecture
-- Async/Await networking
+- Alamofire & Async/Await networking
 - XCTest + Snapshot Testing
 - Accessibility identifiers for UI testing
 
