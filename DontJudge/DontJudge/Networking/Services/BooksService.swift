@@ -14,16 +14,21 @@ protocol BooksServiceProtocol {
 }
 
 class BooksService: BooksServiceProtocol {
+  // API key loaded from environment
   private let apiKey = ProcessInfo.processInfo.environment["GOOGLE_BOOKS_API_KEY"] ?? ""
   private let baseURL = "https://www.googleapis.com/books/v1/volumes"
+  // TODO: Limiting results to 20, should implement paging
+  private let maxResults = 20
   
+  /// Fetches a list of books matching the search query.
+  /// Limits the result to 20 and returns basic info (id, title, imageLinks).
   func fetchBookItems(query: String) async throws -> [BookItem] {
     guard !query.isEmpty else { return [] }
     
     var parameters: [String: String] = [
       "q": query,
       "fields": "items(id,volumeInfo(title,imageLinks))",
-      "maxResults": "20"
+      "maxResults": "\(maxResults)"
     ]
     if !apiKey.isEmpty {
       parameters["key"] = apiKey
@@ -32,6 +37,7 @@ class BooksService: BooksServiceProtocol {
     return try await performRequest(url: baseURL, parameters: parameters, responseType: BookItems.self).items ?? []
   }
   
+  /// Fetches detailed information for a single book by volume ID.
   func fetchBookDetail(volumeId: String) async throws -> BookDetail {
     let url = "\(baseURL)/\(volumeId)"
     var parameters: [String: String] = [:]
@@ -42,7 +48,7 @@ class BooksService: BooksServiceProtocol {
     return try await performRequest(url: url, parameters: parameters, responseType: BookDetail.self)
   }
   
-  
+  /// Executes the network request and decodes the response into the specified type.
   private func performRequest<T: Decodable>(url: String, parameters: [String: String], responseType: T.Type) async throws -> T {
     let request = AF.request(url, parameters: parameters).validate()
     Log.request(request)
