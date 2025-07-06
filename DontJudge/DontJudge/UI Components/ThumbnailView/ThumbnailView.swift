@@ -24,6 +24,7 @@ struct ThumbnailView: View {
       }
       .clipShape(RoundedRectangle(cornerRadius: 16))
     }
+    .accessibilityIdentifier("Thumbnail_\(viewModel.id)")
     .onTapGesture {
       viewModel.onSelection?()
     }

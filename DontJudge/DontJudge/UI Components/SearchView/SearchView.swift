@@ -12,6 +12,7 @@ struct SearchView: View {
   var body: some View {
     VStack {
       TextField("Search books", text: $viewModel.query)
+        .accessibilityIdentifier("SearchBar")
         .textFieldStyle(RoundedBorderTextFieldStyle())
         .padding()
         .onChange(of: viewModel.query) {

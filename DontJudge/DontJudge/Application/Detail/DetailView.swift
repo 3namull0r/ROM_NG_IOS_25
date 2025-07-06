@@ -27,6 +27,7 @@ struct DetailView: View {
       .clipped()
     }
     .navigationTitle(viewModel.navTitle)
+    .accessibilityIdentifier("DetailView")
   }
   
   func errorView(text: String) -> some View {
