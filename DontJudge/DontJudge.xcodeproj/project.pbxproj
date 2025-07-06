@@ -29,6 +29,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		272314BD2E1AA84F004F2C48 /* DontJudge.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DontJudge.xctestplan; sourceTree = "<group>"; };
+		27378B402E1AA84100C41FB1 /* DontJudge.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DontJudge.xctestplan; sourceTree = "<group>"; };
+		274314AB2E1AA80D0078454E /* DontJudge.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DontJudge.xctestplan; sourceTree = "<group>"; };
 		27A90E1B2E170EB700DF5901 /* DontJudge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DontJudge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27A90E292E170EB800DF5901 /* DontJudgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DontJudgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27A90E332E170EB800DF5901 /* DontJudgeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DontJudgeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +85,9 @@
 		27A90E122E170EB700DF5901 = {
 			isa = PBXGroup;
 			children = (
+				272314BD2E1AA84F004F2C48 /* DontJudge.xctestplan */,
+				27378B402E1AA84100C41FB1 /* DontJudge.xctestplan */,
+				274314AB2E1AA80D0078454E /* DontJudge.xctestplan */,
 				27A90E1D2E170EB700DF5901 /* DontJudge */,
 				27A90E2C2E170EB800DF5901 /* DontJudgeTests */,
 				27A90E362E170EB800DF5901 /* DontJudgeUITests */,

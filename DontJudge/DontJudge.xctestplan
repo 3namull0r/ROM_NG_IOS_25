@@ -1,0 +1,42 @@
+{
+  "configurations" : [
+    {
+      "id" : "48B3D980-525B-46E4-8F3D-AED4BCFCB526",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "environmentVariableEntries" : [
+      {
+        "key" : "GOOGLE_BOOKS_API_KEY",
+        "value" : ""
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:DontJudge.xcodeproj",
+      "identifier" : "27A90E1A2E170EB700DF5901",
+      "name" : "DontJudge"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:DontJudge.xcodeproj",
+        "identifier" : "27A90E282E170EB800DF5901",
+        "name" : "DontJudgeTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:DontJudge.xcodeproj",
+        "identifier" : "27A90E322E170EB800DF5901",
+        "name" : "DontJudgeUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
