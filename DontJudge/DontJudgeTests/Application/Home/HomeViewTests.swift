@@ -48,4 +48,14 @@ final class HomeViewSnapshotTests: XCTestCase {
     await viewModel.searchText(query: "123")
     assertSnapshot(of: view, as: .image)
   }
+  
+  @MainActor
+  func testSearchTextFailureSetsErrorMessage() async {
+    mockService.shouldThrowError = true
+    let view = HomeView(viewModel: viewModel)
+      .frame(width: 375, height: 812)
+    await viewModel.searchText(query: "fail")
+    assertSnapshot(of: view, as: .image)
+  }
+  
 }

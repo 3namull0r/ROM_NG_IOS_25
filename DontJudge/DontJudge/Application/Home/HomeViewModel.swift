@@ -23,6 +23,8 @@ class HomeViewModel: ObservableObject {
   @Published var bookItems: [BookItem] = []
   @Published var path = [Route]()
   @Published var selectedView: ContentViewType = .carousel
+  @Published var errorText: String?
+  
   let searchViewModel = SearchViewModel()
   let carouselViewModel = CarouselViewModel()
   var bookListViewModel = BookListViewModel()
@@ -53,8 +55,9 @@ class HomeViewModel: ObservableObject {
     do {
       bookItems = try await booksService.fetchBookItems(query: query)
       updateChildViewModels(with: bookItems)
+      self.errorText = nil
     } catch {
-      self.carouselViewModel.subtitle = NSLocalizedString("We had a problem fetching the books",
+      self.errorText = NSLocalizedString("We had a problem fetching the books",
                                                           comment: "Text displayed when books api call fails during search")
     }
   }

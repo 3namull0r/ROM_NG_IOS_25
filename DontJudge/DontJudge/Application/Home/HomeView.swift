@@ -18,6 +18,9 @@ struct HomeView: View {
     NavigationStack(path: $viewModel.path) {
       VStack {
         SearchView(viewModel: viewModel.searchViewModel)
+        if let errorMessage = viewModel.errorText {
+          errorView(text: errorMessage)
+        }
         DescriptionView(viewModel: viewModel.descriptionViewModel)
           .padding(.horizontal)
         
@@ -38,10 +41,16 @@ struct HomeView: View {
       .navigationDestination(for: Route.self) { route in
         switch route {
         case .bookDetail(let id):
-          DetailView(id: id)
+          DetailView(viewModel: DetailViewModel(id: id))
         }
       }
     }
+  }
+  
+  
+  func errorView(text: String) -> some View {
+    Text(text)
+      .foregroundColor(.red)
   }
   
   var segmentControl: some View {

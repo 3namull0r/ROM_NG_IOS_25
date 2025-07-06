@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct DetailView: View {
-  @StateObject private var viewModel: DetailViewModel
+  @ObservedObject private var viewModel: DetailViewModel
   
-  init(id: String) {
-    _viewModel = StateObject(wrappedValue: DetailViewModel(id: id))
+  init(viewModel: DetailViewModel) {
+    self.viewModel = viewModel
   }
   
   var infoView: some View {
@@ -29,8 +29,8 @@ struct DetailView: View {
     .navigationTitle(viewModel.navTitle)
   }
   
-  var errorView: some View {
-    Text(viewModel.errorText!)
+  func errorView(text: String) -> some View {
+    Text(text)
       .foregroundColor(.red)
   }
   
@@ -41,8 +41,8 @@ struct DetailView: View {
            ProgressView()
          } else {
            Group {
-             if viewModel.errorText != nil {
-               errorView
+             if let errorText = viewModel.errorText {
+               errorView(text: errorText)
              } else {
                ThumbnailView(viewModel: viewModel.thumbnailViewModel)
                infoView
@@ -60,5 +60,5 @@ struct DetailView: View {
 }
 
 #Preview {
-  DetailView(id: "nlk_EAAAQBAJ")
+  DetailView(viewModel: DetailViewModel(id: "123"))
 }

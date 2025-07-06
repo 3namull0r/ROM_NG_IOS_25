@@ -33,7 +33,7 @@ final class DetailViewModelTests: XCTestCase {
     XCTAssertEqual(viewModel.descriptionViewModel.detail, longDescription)
   }
   
-  func test_loadData_failure_setsErrorText() async {
+  func testLoadDataFailureSetsErrorText() async {
     let mockService = MockBooksService()
     mockService.shouldThrowError = true
     
