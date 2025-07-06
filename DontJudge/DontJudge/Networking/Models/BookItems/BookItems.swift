@@ -13,8 +13,8 @@ struct BookItems: Decodable {
 }
 
 struct BookItem: Decodable, Identifiable {
-  let volumeInfo: VolumeInfoLight
   let id: String
+  let volumeInfo: VolumeInfoLight
 }
 
 struct VolumeInfoLight: Decodable {

@@ -39,7 +39,7 @@ class HomeViewModel: ObservableObject {
   
   let navTitle =  NSLocalizedString("Dont Judge", comment: "Home screen navigation bar title")
   
-  var descritionViewModel: DescriptionViewModel {
+  var descriptionViewModel: DescriptionViewModel {
     DescriptionViewModel(title: NSLocalizedString("Welcome to DontJudge", comment: "Welcome text title"),
                          detail: NSLocalizedString("Search for books in the bar above to see their covers but don't judge them based on that! Tap on the cover to get more information.",
                                                    comment: "Welcome screen subtitle"))
@@ -51,14 +51,19 @@ class HomeViewModel: ObservableObject {
   func searchText(query: String) async {
     do {
       bookItems = try await booksService.fetchBookItems(query: query)
-      let carouselThumbnail = createThumbnailViewModels(bookItems: bookItems)
-      carouselViewModel.updateCarouselData(thumbnailViewModels: carouselThumbnail)
-      let rowViewModels = createListRowViewModels(bookItems: bookItems)
-      bookListViewModel.rowViewModels = rowViewModels
+      updateChildViewModels(with: bookItems)
     } catch {
       self.carouselViewModel.subtitle = NSLocalizedString("We had a problem fetching the books",
                                                           comment: "Text displayed when books api call fails during search")
     }
+  }
+  
+  private func updateChildViewModels(with items: [BookItem]) {
+    let carouselThumbnails = createThumbnailViewModels(bookItems: items, thumbnailStyle: .carousel)
+    carouselViewModel.updateCarouselData(thumbnailViewModels: carouselThumbnails)
+
+    let listViewModels = createListRowViewModels(bookItems: items)
+    bookListViewModel.rowViewModels = listViewModels
   }
   
   private func makeThumbnailViewModel(from bookItem: BookItem,

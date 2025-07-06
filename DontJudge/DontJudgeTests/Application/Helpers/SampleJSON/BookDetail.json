@@ -1,0 +1,116 @@
+{
+  "kind": "books#volume",
+  "id": "abYKXvCwEToC",
+  "etag": "7+X6dsCXXkk",
+  "selfLink": "https://www.googleapis.com/books/v1/volumes/abYKXvCwEToC",
+  "volumeInfo": {
+    "title": "Harry Potter",
+    "subtitle": "The Story of a Global Business Phenomenon",
+    "authors": [
+      "S. Gunelius"
+    ],
+    "publisher": "Springer",
+    "publishedDate": "2008-06-03",
+    "description": "The Harry Potter books are the bestselling books of all time. In this fascinating study, Susan Gunelius analyzes every aspect of the brand phenomenon that is Harry Potter. Delving into price wars, box office revenue, and brand values, amongst other things, this is the story of the most incredible brand success there has ever been.",
+    "industryIdentifiers": [
+      {
+        "type": "ISBN_10",
+        "identifier": "0230594107"
+      },
+      {
+        "type": "ISBN_13",
+        "identifier": "9780230594104"
+      }
+    ],
+    "readingModes": {
+      "text": true,
+      "image": true
+    },
+    "pageCount": 194,
+    "printedPageCount": 214,
+    "printType": "BOOK",
+    "categories": [
+      "Business & Economics / Marketing / General",
+      "Business & Economics / International / General",
+      "Business & Economics / Strategic Planning",
+      "Business & Economics / Leadership",
+      "Business & Economics / Industries / General",
+      "Business & Economics / Sales & Selling / General",
+      "Business & Economics / Advertising & Promotion"
+    ],
+    "averageRating": 3,
+    "ratingsCount": 8,
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": true,
+    "contentVersion": "2.5.6.0.preview.3",
+    "panelizationSummary": {
+      "containsEpubBubbles": false,
+      "containsImageBubbles": false
+    },
+    "imageLinks": {
+      "smallThumbnail": "http://books.google.com/books/content?id=abYKXvCwEToC&printsec=frontcover&img=1&zoom=5&edge=curl&imgtk=AFLRE71ZK4SkND3kJ36oTkBMDMt5_OdC_72CgIb6M3pdTk7OKzfwCzfKWmI6COJkysV3pdI0fZekF9uG77KqHNUiyrJFUd4AEynIpR-odj6xIT6QAP7GsdB4wjl3rsyIiaqyoopUCDba&source=gbs_api",
+      "thumbnail": "http://books.google.com/books/content?id=abYKXvCwEToC&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73LIF03jJaew25UZBK7GFqoroZ6BHXtOy2h1P59yCkHQSiIYurDfwjZfGFXXubICtoPX7dOF2DX0TE9X9C_M_FZzrk9in8BA3s3E9bnvGwzPg-tiK8J_l6nAcqbwO65uoJHQtrR&source=gbs_api",
+      "small": "http://books.google.com/books/content?id=abYKXvCwEToC&printsec=frontcover&img=1&zoom=2&edge=curl&imgtk=AFLRE72VCPEq9Qx0UKM-oqqZ3ZRPaVuA5lmMVLpCDTMwPS6PklE0wIz6yiccYIecSoXZAZBybK0FOyg2FBOBgZy8I8vs7SlP5Zlrpmbmc1E3ZaPE9NZq1O44H9bbWJkFSx9ediPv-aiR&source=gbs_api",
+      "medium": "http://books.google.com/books/content?id=abYKXvCwEToC&printsec=frontcover&img=1&zoom=3&edge=curl&imgtk=AFLRE70YO_2EzCmKeDQBScy0VcS5dEOtK2l_jnO-1tyfKQM8UX52DGBs67aVb-Wu4XdmZ-mpPuZMd96QxZ-hgmVv-EE_LXjgnoDnA30QORJPdSMv8AkwmHgMAWco2hzjsWIQiV_PbRuY&source=gbs_api",
+      "large": "http://books.google.com/books/content?id=abYKXvCwEToC&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE72tS6ROLRV2nwrlI_TsnLpkyP7M1JY6VEveo3b78Z2vAc3_oSL21eJ8UiRnSnsfhR4rU8hCtUWZDdUn5LvhNAMn6C62AqYcRSzIIjFabE0zmKrABSjAr8jP9fEp0M44Dd5j0kP2&source=gbs_api",
+      "extraLarge": "http://books.google.com/books/content?id=abYKXvCwEToC&printsec=frontcover&img=1&zoom=6&edge=curl&imgtk=AFLRE72JNi96QgC99J9pkEx8JPuHLugGOXDwqTAvx3JZ58YHA1dTklNnJNCujlKNQMAhPaPw0r4VQOY009uY0mnkFHXJ4q0YibFQCt22QlhQFjq3Q45YBiTlDM_XwqOXOnthjQY6YrjS&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.ie/books?id=abYKXvCwEToC&hl=&source=gbs_api",
+    "infoLink": "https://play.google.com/store/books/details?id=abYKXvCwEToC&source=gbs_api",
+    "canonicalVolumeLink": "https://play.google.com/store/books/details?id=abYKXvCwEToC"
+  },
+  "layerInfo": {
+    "layers": [
+      {
+        "layerId": "geo",
+        "volumeAnnotationsVersion": "10"
+      }
+    ]
+  },
+  "saleInfo": {
+    "country": "IE",
+    "saleability": "FOR_SALE",
+    "isEbook": true,
+    "listPrice": {
+      "amount": 49.99,
+      "currencyCode": "EUR"
+    },
+    "retailPrice": {
+      "amount": 34.99,
+      "currencyCode": "EUR"
+    },
+    "buyLink": "https://play.google.com/store/books/details?id=abYKXvCwEToC&rdid=book-abYKXvCwEToC&rdot=1&source=gbs_api",
+    "offers": [
+      {
+        "finskyOfferType": 1,
+        "listPrice": {
+          "amountInMicros": 49990000,
+          "currencyCode": "EUR"
+        },
+        "retailPrice": {
+          "amountInMicros": 34990000,
+          "currencyCode": "EUR"
+        }
+      }
+    ]
+  },
+  "accessInfo": {
+    "country": "IE",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+      "isAvailable": true,
+      "acsTokenLink": "http://books.google.ie/books/download/Harry_Potter-sample-epub.acsm?id=abYKXvCwEToC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+      "isAvailable": true,
+      "acsTokenLink": "http://books.google.ie/books/download/Harry_Potter-sample-pdf.acsm?id=abYKXvCwEToC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=abYKXvCwEToC&hl=&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+  }
+}

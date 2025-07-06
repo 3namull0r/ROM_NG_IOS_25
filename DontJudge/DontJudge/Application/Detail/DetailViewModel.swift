@@ -10,7 +10,6 @@ class DetailViewModel: ObservableObject {
   var book: BookDetail?
   @Published var errorText: String?
   @Published var detailRows: [DetailRowViewModel] = []
-  let navTitle =  NSLocalizedString("Book Details", comment: "Home screen navigation bar title")
   
   private let id: String
   private let booksService: BooksServiceProtocol
@@ -19,6 +18,10 @@ class DetailViewModel: ObservableObject {
        booksService: BooksServiceProtocol = BooksService()) {
     self.id = id
     self.booksService = booksService
+  }
+  
+  var navTitle: String {
+    book?.volumeInfo.title ?? NSLocalizedString("Book Details", comment: "Detail screen fallback title")
   }
   
   var isLoading: Bool {
@@ -39,57 +42,26 @@ class DetailViewModel: ObservableObject {
                        onSelection: {})
   }
   
-  private var titleRow: DetailRowViewModel {
+  private func creatDetailRowViewModel(titleKey: String, value: String?) -> DetailRowViewModel {
     DetailRowViewModel(
-      title: NSLocalizedString("Title", comment: "Label for book title"),
-      value: book?.volumeInfo.title ?? NSLocalizedString("No Title", comment: "Empty label for book title")
+      title: NSLocalizedString(titleKey, comment: "Label for \(titleKey.lowercased())"),
+      value: value ?? NSLocalizedString("No \(titleKey)", comment: "Empty label for \(titleKey.lowercased())")
     )
   }
-
-  private var subtitleRow: DetailRowViewModel {
-    DetailRowViewModel(
-      title: NSLocalizedString("Subtitle", comment: "Label for book subtitle"),
-      value: book?.volumeInfo.subtitle ?? NSLocalizedString("No Subtitle", comment: "Empty label for book subtitle")
-    )
-  }
-
-  private var authorRow: DetailRowViewModel {
-    DetailRowViewModel(
-      title: NSLocalizedString("Author", comment: "Label for book author"),
-      value: book?.volumeInfo.authors?.first ?? NSLocalizedString("No Author", comment: "Empty label for book author")
-    )
-  }
-
-  private var publisherRow: DetailRowViewModel {
-    DetailRowViewModel(
-      title: NSLocalizedString("Publisher", comment: "Label for book publisher"),
-      value: book?.volumeInfo.publisher ?? NSLocalizedString("No Publisher", comment: "Empty label for book publisher")
-    )
-  }
-
-  private var publishedDateRow: DetailRowViewModel {
-    DetailRowViewModel(
-      title: NSLocalizedString("Published Date", comment: "Label for book published date"),
-      value: book?.volumeInfo.publishedDate ?? NSLocalizedString("No Published Date", comment: "Empty label for book published date")
-    )
-  }
-
-  private var pageCountRow: DetailRowViewModel {
-    DetailRowViewModel(
-      title: NSLocalizedString("Page Count", comment: "Label for book page count"),
-      value: book?.volumeInfo.pageCount.map(String.init) ?? NSLocalizedString("No Page Count", comment: "Empty label for book page count")
-    )
-  }
-  
   
   func createDetailRows() {
+    guard let volumeInfo = book?.volumeInfo else {
+      detailRows = []
+      return
+    }
+
     detailRows = [
-      titleRow,
-      subtitleRow,
-      authorRow,
-      publisherRow,
-      publishedDateRow,
-      pageCountRow
+      creatDetailRowViewModel(titleKey: "Title", value: volumeInfo.title),
+      creatDetailRowViewModel(titleKey: "Subtitle", value: volumeInfo.subtitle),
+      creatDetailRowViewModel(titleKey: "Author", value: volumeInfo.authors?.first),
+      creatDetailRowViewModel(titleKey: "Publisher", value: volumeInfo.publisher),
+      creatDetailRowViewModel(titleKey: "Published Date", value: volumeInfo.publishedDate),
+      creatDetailRowViewModel(titleKey: "Page Count", value: volumeInfo.pageCount.map(String.init))
     ]
   }
   

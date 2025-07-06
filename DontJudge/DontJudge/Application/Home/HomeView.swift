@@ -14,7 +14,7 @@ struct HomeView: View {
     NavigationStack(path: $viewModel.path) {
       VStack {
         SearchView(viewModel: viewModel.searchViewModel)
-        DescriptionView(viewModel: viewModel.descritionViewModel)
+        DescriptionView(viewModel: viewModel.descriptionViewModel)
           .padding(.horizontal)
         
           if viewModel.hasResults {
