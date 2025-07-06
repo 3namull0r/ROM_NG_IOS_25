@@ -50,5 +50,12 @@ struct CarouselView: View {
 }
 
 #Preview {
-  CarouselView(viewModel: CarouselViewModel())
+  let vm = CarouselViewModel()
+  vm.thumbnailViewModels = [
+    ThumbnailViewModel(imageUrlString: ""),
+    ThumbnailViewModel(imageUrlString: ""),
+    ThumbnailViewModel(imageUrlString: "")
+  ]
+  vm.subtitle = "Mock Subtitle"
+  return CarouselView(viewModel: vm)
 }
