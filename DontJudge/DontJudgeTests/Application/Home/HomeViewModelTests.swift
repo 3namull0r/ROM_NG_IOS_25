@@ -22,7 +22,6 @@ final class HomeViewModelTests: XCTestCase {
     super.tearDown()
   }
   
-  @MainActor
   func testSearchTextSuccessPopulatesViewModels() async {
     let viewModel = HomeViewModel(booksService: mockService)
     await viewModel.searchText(query: "test")
@@ -32,7 +31,6 @@ final class HomeViewModelTests: XCTestCase {
     XCTAssertEqual(viewModel.bookListViewModel.rowViewModels.count, 20)
   }
 
-  @MainActor
   func testSearchTextFailureSetsErrorMessage() async {
     let mockService = MockBooksService()
     mockService.shouldThrowError = true

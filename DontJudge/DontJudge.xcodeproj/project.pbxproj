@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		274314882E1A83260078454E /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 274314872E1A83260078454E /* SnapshotTesting */; };
 		27A90E4C2E17134400DF5901 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 27A90E4B2E17134400DF5901 /* Alamofire */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				274314882E1A83260078454E /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +143,7 @@
 			);
 			name = DontJudgeTests;
 			packageProductDependencies = (
+				274314872E1A83260078454E /* SnapshotTesting */,
 			);
 			productName = DontJudgeTests;
 			productReference = 27A90E292E170EB800DF5901 /* DontJudgeTests.xctest */;
@@ -203,6 +206,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				27A90E4A2E17134400DF5901 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				274314862E1A83260078454E /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 27A90E1C2E170EB700DF5901 /* Products */;
@@ -594,6 +598,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		274314862E1A83260078454E /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.18.4;
+			};
+		};
 		27A90E4A2E17134400DF5901 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -605,6 +617,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		274314872E1A83260078454E /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 274314862E1A83260078454E /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
 		27A90E4B2E17134400DF5901 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 27A90E4A2E17134400DF5901 /* XCRemoteSwiftPackageReference "Alamofire" */;

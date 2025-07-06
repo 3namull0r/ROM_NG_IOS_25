@@ -18,7 +18,7 @@ enum ContentViewType: String, CaseIterable, Identifiable {
   var id: String { rawValue }
 }
 
-@MainActor
+
 class HomeViewModel: ObservableObject {
   @Published var bookItems: [BookItem] = []
   @Published var path = [Route]()
@@ -45,6 +45,7 @@ class HomeViewModel: ObservableObject {
                                                    comment: "Welcome screen subtitle"))
   }
   
+  @MainActor
   var hasResults: Bool { !bookItems.isEmpty }
   
   @MainActor

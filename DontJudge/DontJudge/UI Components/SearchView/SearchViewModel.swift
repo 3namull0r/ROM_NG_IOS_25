@@ -6,10 +6,9 @@
 //
 import SwiftUI
 
-@MainActor
 class SearchViewModel: ObservableObject {
   @Published var query: String = ""
-  var onDebouncedSearch: ((String) async -> Void)?
+  var onDebouncedSearch: (@MainActor (String) async -> Void)?
   private var searchTask: Task<Void, Never>? = nil
   
   func search() {
