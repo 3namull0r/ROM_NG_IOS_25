@@ -25,7 +25,7 @@ struct ThumbnailView: View {
       .clipShape(RoundedRectangle(cornerRadius: 16))
     }
     .onTapGesture {
-      viewModel.onSelection()
+      viewModel.onSelection?()
     }
   }
   

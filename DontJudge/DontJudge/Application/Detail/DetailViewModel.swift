@@ -37,9 +37,7 @@ class DetailViewModel: ObservableObject {
   
   var thumbnailViewModel: ThumbnailViewModel {
     ThumbnailViewModel(imageUrlString: book?.volumeInfo.imageLinks?.thumbnail,
-                       thumbnailStyle: .title,
-                       onFocus: {},
-                       onSelection: {})
+                       thumbnailStyle: .title)
   }
   
   private func creatDetailRowViewModel(titleKey: String, value: String?) -> DetailRowViewModel {

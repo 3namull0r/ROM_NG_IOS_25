@@ -38,6 +38,6 @@ final class HomeViewModelTests: XCTestCase {
     let viewModel = HomeViewModel(booksService: mockService)
     await viewModel.searchText(query: "fail")
     
-    XCTAssertEqual(viewModel.carouselViewModel.subtitle, "We had a problem fetching the books")
+    XCTAssertEqual(viewModel.errorText, "We had a problem fetching the books")
   }
 }

@@ -23,7 +23,7 @@ class CarouselViewModel: ObservableObject {
   func focusOnThumbnail(withIndex index: Int?) {
     if let viewModel = thumbnailViewModels[safe: index] {
       Task {
-        await viewModel.onFocus()
+        await viewModel.onFocus?()
       }
     }
   }

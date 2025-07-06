@@ -14,8 +14,8 @@ struct ThumbnailViewModel: Identifiable {
   let id = UUID()
   var imageUrlString: String?
   var thumbnailStyle: ThumbnailStyle = .carousel
-  var onFocus: (@MainActor () -> Void)
-  var onSelection: (@MainActor () -> Void)
+  var onFocus: (@MainActor () -> Void)?
+  var onSelection: (@MainActor () -> Void)?
   
   var imageUrl: URL? {
     guard let imageUrlString else { return nil }
