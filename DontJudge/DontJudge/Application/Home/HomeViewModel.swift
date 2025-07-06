@@ -53,9 +53,13 @@ class HomeViewModel: ObservableObject {
   @MainActor
   func searchText(query: String) async {
     do {
-      bookItems = try await booksService.fetchBookItems(query: query)
-      updateChildViewModels(with: bookItems)
-      self.errorText = nil
+      let newBookItems = try await booksService.fetchBookItems(query: query)
+      // the only case we want to set an empty list of books is if the query is empty
+      if !newBookItems.isEmpty || query.isEmpty {
+        bookItems = newBookItems
+        updateChildViewModels(with: bookItems)
+        self.errorText = nil
+      }
     } catch {
       self.errorText = NSLocalizedString("We had a problem fetching the books",
                                                           comment: "Text displayed when books api call fails during search")

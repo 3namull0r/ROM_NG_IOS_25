@@ -10,7 +10,7 @@ import Alamofire
 
 protocol BooksServiceProtocol {
   func fetchBookItems(query: String) async throws -> [BookItem]
-  func fetchBookDetail(volumeId: String) async throws -> BookDetail
+  func fetchBookDetail(volumeId: String) async throws -> BookDetail?
 }
 
 class BooksService: BooksServiceProtocol {
@@ -34,11 +34,11 @@ class BooksService: BooksServiceProtocol {
       parameters["key"] = apiKey
     }
     
-    return try await performRequest(url: baseURL, parameters: parameters, responseType: BookItems.self).items ?? []
+    return try await performRequest(url: baseURL, parameters: parameters, responseType: BookItems.self)?.items ?? []
   }
   
   /// Fetches detailed information for a single book by volume ID.
-  func fetchBookDetail(volumeId: String) async throws -> BookDetail {
+  func fetchBookDetail(volumeId: String) async throws -> BookDetail? {
     let url = "\(baseURL)/\(volumeId)"
     var parameters: [String: String] = [:]
     if !apiKey.isEmpty {
@@ -49,7 +49,7 @@ class BooksService: BooksServiceProtocol {
   }
   
   /// Executes the network request and decodes the response into the specified type.
-  private func performRequest<T: Decodable>(url: String, parameters: [String: String], responseType: T.Type) async throws -> T {
+  private func performRequest<T: Decodable>(url: String, parameters: [String: String], responseType: T.Type) async throws -> T? {
     let request = AF.request(url, parameters: parameters).validate()
     Log.request(request)
     
@@ -61,6 +61,10 @@ class BooksService: BooksServiceProtocol {
       return try JSONDecoder().decode(T.self, from: data)
     } catch {
       Log.error(error)
+      // if the task is specifically cancelled we supress the error
+      if let afError = error as? AFError, case .explicitlyCancelled = afError {
+        return nil
+      }
       throw error
     }
   }

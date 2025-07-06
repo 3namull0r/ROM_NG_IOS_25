@@ -14,7 +14,7 @@ class SearchViewModel: ObservableObject {
   func search() {
     searchTask?.cancel()
     searchTask = Task {
-      try? await Task.sleep(nanoseconds: 1_000_000_000)
+      try? await Task.sleep(for: .milliseconds(500))
       guard !Task.isCancelled else { return }
       
       if let callback = onDebouncedSearch {
