@@ -28,34 +28,34 @@ final class HomeViewSnapshotTests: XCTestCase {
   
   func testHomeViewSnapshot() {
     let view = HomeView(viewModel: viewModel)
-      .frame(width: 375, height: 812)
-    assertSnapshot(of: view, as: .image)
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhone13Pro)))
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhoneSe)))
   }
   
   @MainActor
   func testHomeViewSearchResultsCarouselSnapshot() async throws {
     let view = HomeView(viewModel: viewModel)
-      .frame(width: 375, height: 812)
     await viewModel.searchText(query: "123")
-    assertSnapshot(of: view, as: .image)
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhone13Pro)))
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhoneSe)))
   }
   
   @MainActor
   func testHomeViewSearchResultsListSnapshot() async throws {
     let view = HomeView(viewModel: viewModel)
-      .frame(width: 375, height: 812)
     viewModel.selectedView = .list
     await viewModel.searchText(query: "123")
-    assertSnapshot(of: view, as: .image)
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhone13Pro)))
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhoneSe)))
   }
   
   @MainActor
   func testSearchTextFailureSetsErrorMessage() async {
     mockService.shouldThrowError = true
     let view = HomeView(viewModel: viewModel)
-      .frame(width: 375, height: 812)
     await viewModel.searchText(query: "fail")
-    assertSnapshot(of: view, as: .image)
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhone13Pro)))
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhoneSe)))
   }
   
 }

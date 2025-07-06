@@ -28,18 +28,18 @@ final class DetailViewTests: XCTestCase {
   @MainActor
   func testDetailViewSnapshot() async throws {
     let view = DetailView(viewModel: viewModel)
-      .frame(width: 375, height: 812)
     await viewModel.loadData()
-    assertSnapshot(of: view, as: .image)
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhone13Pro)))
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhoneSe)))
   }
   
   @MainActor
   func testDetailFailureSetsErrorMessage() async throws {
     mockService.shouldThrowError = true
     let view = DetailView(viewModel: viewModel)
-      .frame(width: 375, height: 812)
     await viewModel.loadData()
-    assertSnapshot(of: view, as: .image)
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhone13Pro)))
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhoneSe)))
   }
   
 }
