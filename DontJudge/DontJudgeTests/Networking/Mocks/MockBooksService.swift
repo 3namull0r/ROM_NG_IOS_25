@@ -13,7 +13,7 @@ class MockBooksService: BooksServiceProtocol {
   var bookDetailToReturn: BookDetail?
   var shouldThrowError = false
   
-  func fetchBookItems(query: String) async throws -> [DontJudge.BookItem] {
+  func fetchBookItems(query: String, startIndex: Int) async throws -> [DontJudge.BookItem] {
     if shouldThrowError { throw URLError(.badServerResponse) }
     return bookItemsToReturn
   }

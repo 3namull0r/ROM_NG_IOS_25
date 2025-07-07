@@ -8,10 +8,16 @@ import SwiftUI
 
 struct BookListView: View {
   var viewModel: BookListViewModel
+  var onScrolledToBottom: (() -> Void)? = nil
   
   var body: some View {
-    List(viewModel.rowViewModels) { rowViewModel in
-      BookListRowView(viewModel: rowViewModel)
+    List(viewModel.rowViewModels.indices, id: \ .self) { index in
+      BookListRowView(viewModel: viewModel.rowViewModels[index])
+        .onAppear {
+          if index == viewModel.rowViewModels.count - 1 {
+            onScrolledToBottom?()
+          }
+        }
     }
   }
 }

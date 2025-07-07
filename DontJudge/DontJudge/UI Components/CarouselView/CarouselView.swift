@@ -10,6 +10,7 @@ import Combine
 
 struct CarouselView: View {
   @ObservedObject var viewModel: CarouselViewModel
+  var onScrolledToEnd: (() -> Void)? = nil
   
   var body: some View {
     VStack(spacing: 8) {
@@ -34,6 +35,13 @@ struct CarouselView: View {
       PageControl(currentPage: $viewModel.scrollIndex, numberOfPages: viewModel.thumbnailViewModels.count)
       subtitleView
       Spacer()
+    }
+    .onChange(of: viewModel.scrollIndex) {
+      guard let newIndex = viewModel.scrollIndex else { return }
+      // Trigger paging when user scrolls to the last or second-to-last thumbnail
+      if newIndex >= viewModel.thumbnailViewModels.count - 2 {
+        onScrolledToEnd?()
+      }
     }
   }
   

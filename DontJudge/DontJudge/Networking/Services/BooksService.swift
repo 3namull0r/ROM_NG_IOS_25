@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 protocol BooksServiceProtocol {
-  func fetchBookItems(query: String) async throws -> [BookItem]
+  func fetchBookItems(query: String, startIndex: Int) async throws -> [BookItem]
   func fetchBookDetail(volumeId: String) async throws -> BookDetail?
 }
 
@@ -22,13 +22,14 @@ class BooksService: BooksServiceProtocol {
   
   /// Fetches a list of books matching the search query.
   /// Limits the result to 20 and returns basic info (id, title, imageLinks).
-  func fetchBookItems(query: String) async throws -> [BookItem] {
+  func fetchBookItems(query: String, startIndex: Int = 0) async throws -> [BookItem] {
     guard !query.isEmpty else { return [] }
     
     var parameters: [String: String] = [
       "q": query,
       "fields": "items(id,volumeInfo(title,imageLinks))",
-      "maxResults": "\(maxResults)"
+      "maxResults": "\(maxResults)",
+      "startIndex": "\(startIndex)"
     ]
     if !apiKey.isEmpty {
       parameters["key"] = apiKey

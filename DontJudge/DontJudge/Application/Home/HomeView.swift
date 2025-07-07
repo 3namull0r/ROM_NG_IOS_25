@@ -29,9 +29,17 @@ struct HomeView: View {
               .padding(.horizontal)
             switch viewModel.selectedView {
             case .list:
-              BookListView(viewModel: viewModel.bookListViewModel)
+              BookListView(viewModel: viewModel.bookListViewModel, onScrolledToBottom: {
+                Task {
+                  await viewModel.loadNextPage()
+                }
+              })
             case .carousel:
-              CarouselView(viewModel: viewModel.carouselViewModel)
+              CarouselView(viewModel: viewModel.carouselViewModel, onScrolledToEnd: {
+                Task {
+                  await viewModel.loadNextPage()
+                }
+              })
             }
           }
           Spacer()

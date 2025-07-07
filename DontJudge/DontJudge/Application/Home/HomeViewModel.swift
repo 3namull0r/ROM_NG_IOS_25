@@ -24,12 +24,16 @@ class HomeViewModel: ObservableObject {
   @Published var path = [Route]()
   @Published var selectedView: ContentViewType = .carousel
   @Published var errorText: String?
+  @Published var isLoading: Bool = false
   
   let searchViewModel = SearchViewModel()
   let carouselViewModel = CarouselViewModel()
   var bookListViewModel = BookListViewModel()
   
   private let booksService: BooksServiceProtocol
+  private var currentQuery: String = ""
+  private var nextStartIndex: Int = 0
+  private let pageSize: Int = 20
   
   init (booksService: BooksServiceProtocol = BooksService()) {
     self.booksService = booksService
@@ -52,26 +56,48 @@ class HomeViewModel: ObservableObject {
   
   @MainActor
   func searchText(query: String) async {
+    isLoading = true
+    defer { isLoading = false }
     do {
-      let newBookItems = try await booksService.fetchBookItems(query: query)
-      // the only case we want to set an empty list of books is if the query is empty
+      let newBookItems = try await booksService.fetchBookItems(query: query, startIndex: 0)
       if !newBookItems.isEmpty || query.isEmpty {
         bookItems = newBookItems
-        updateChildViewModels(with: bookItems)
+        updateChildViewModels(with: newBookItems, append: false)
         self.errorText = nil
+        currentQuery = query
+        nextStartIndex = newBookItems.count
       }
     } catch {
       self.errorText = NSLocalizedString("We had a problem fetching the books",
-                                                          comment: "Text displayed when books api call fails during search")
+                                        comment: "Text displayed when books api call fails during search")
     }
   }
   
-  private func updateChildViewModels(with items: [BookItem]) {
+  @MainActor
+  func loadNextPage() async {
+    guard !isLoading, !currentQuery.isEmpty else { return }
+    isLoading = true
+    defer { isLoading = false }
+    do {
+      let newBookItems = try await booksService.fetchBookItems(query: currentQuery, startIndex: nextStartIndex)
+      guard !newBookItems.isEmpty else { return }
+      bookItems.append(contentsOf: newBookItems)
+      updateChildViewModels(with: newBookItems, append: true)
+      nextStartIndex += newBookItems.count
+    } catch {
+      // Optionally set errorText
+    }
+  }
+  
+  private func updateChildViewModels(with items: [BookItem], append: Bool) {
     let carouselThumbnails = createThumbnailViewModels(bookItems: items, thumbnailStyle: .carousel)
-    carouselViewModel.updateCarouselData(thumbnailViewModels: carouselThumbnails)
-
-    let listViewModels = createListRowViewModels(bookItems: items)
-    bookListViewModel.rowViewModels = listViewModels
+    if append {
+      carouselViewModel.thumbnailViewModels.append(contentsOf: carouselThumbnails)
+      bookListViewModel.rowViewModels.append(contentsOf: createListRowViewModels(bookItems: items))
+    } else {
+      carouselViewModel.updateCarouselData(thumbnailViewModels: carouselThumbnails)
+      bookListViewModel.rowViewModels = createListRowViewModels(bookItems: items)
+    }
   }
   
   private func makeThumbnailViewModel(from bookItem: BookItem,
