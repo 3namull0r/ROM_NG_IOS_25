@@ -18,6 +18,7 @@ final class CarouselViewSnapshotTests: XCTestCase {
     viewModel.subtitle = nil
     let view = CarouselView(viewModel: viewModel)
     assertSnapshot(of: view, as: .image(layout: .device(config: .iPhone13Pro)))
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhoneSe)))
   }
   
   func testCarouselViewSingleThumbnail() {
@@ -28,6 +29,7 @@ final class CarouselViewSnapshotTests: XCTestCase {
     viewModel.subtitle = "Single Book"
     let view = CarouselView(viewModel: viewModel)
     assertSnapshot(of: view, as: .image(layout: .device(config: .iPhone13Pro)))
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhoneSe)))
   }
   
   func testCarouselViewMultipleThumbnails() {
@@ -40,5 +42,6 @@ final class CarouselViewSnapshotTests: XCTestCase {
     viewModel.subtitle = "Multiple Books"
     let view = CarouselView(viewModel: viewModel)
     assertSnapshot(of: view, as: .image(layout: .device(config: .iPhone13Pro)))
+    assertSnapshot(of: view, as: .image(layout: .device(config: .iPhoneSe)))
   }
 }
