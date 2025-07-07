@@ -18,7 +18,7 @@ class MockBooksService: BooksServiceProtocol {
     return bookItemsToReturn
   }
   
-  func fetchBookDetail(volumeId: String) async throws -> BookDetail {
+func fetchBookDetail(volumeId: String) async throws -> BookDetail? {
     if shouldThrowError { throw URLError(.badServerResponse) }
     return bookDetailToReturn!
   }
