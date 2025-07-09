@@ -17,11 +17,10 @@ class BooksService: BooksServiceProtocol {
   // API key loaded from environment
   private let apiKey = ProcessInfo.processInfo.environment["GOOGLE_BOOKS_API_KEY"] ?? ""
   private let baseURL = "https://www.googleapis.com/books/v1/volumes"
-  // TODO: Limiting results to 20, should implement paging
   private let maxResults = 20
   
   /// Fetches a list of books matching the search query.
-  /// Limits the result to 20 and returns basic info (id, title, imageLinks).
+  /// Fetches 20 results from the start index and returns basic info (id, title, imageLinks).
   func fetchBookItems(query: String, startIndex: Int = 0) async throws -> [BookItem] {
     guard !query.isEmpty else { return [] }
     
